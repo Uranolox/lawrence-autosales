@@ -1,0 +1,33 @@
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#f5f9ff;color:#111}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:15px 5%;background:white;position:sticky;top:0;z-index:10;box-shadow:0 5px 20px rgba(0,0,0,.08)}
+.brand img{height:70px}
+.menu a{text-decoration:none;margin-left:20px;color:#1147b8;font-weight:600}
+.callbtn{background:linear-gradient(135deg,#1565ff,#42a5ff);padding:12px 18px;border-radius:30px;color:white!important}
+.hero{height:80vh;background:linear-gradient(135deg,#0b4edb,#4cb4ff);display:flex;align-items:center;padding:8%;color:white}
+.hero h1{font-size:4rem;max-width:700px}
+.hero p{font-size:1.2rem;margin:15px 0}
+.badge{background:rgba(255,255,255,.2);padding:8px 14px;border-radius:30px}
+.hero-buttons button,.search-box button,.card button,.finance button,form button{background:linear-gradient(135deg,#1565ff,#42a5ff);color:white;border:none;padding:14px 24px;border-radius:30px;cursor:pointer}
+.secondary{background:white!important;color:#0b4edb!important}
+.hero-buttons{display:flex;gap:15px;margin-top:20px}
+.search-box{max-width:1100px;margin:-40px auto 40px;background:white;padding:20px;border-radius:20px;display:flex;gap:15px;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.search-box select{flex:1;padding:14px}
+h2{text-align:center;font-size:2.5rem;margin:60px 0 30px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;padding:0 5%}
+.card{background:white;border-radius:20px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08)}
+.img{height:180px;border-radius:15px;background:linear-gradient(135deg,#dcecff,#a5d3ff)}
+.card h3{margin-top:15px}
+.card button{margin-top:15px;width:100%}
+.stats{display:flex;justify-content:center;gap:60px;padding:70px 20px;background:#0f56dd;color:white;text-align:center;margin-top:60px}
+.stats h3{font-size:3rem}
+.reviews{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;padding:20px}
+.review{background:white;padding:25px;border-radius:20px;max-width:300px;box-shadow:0 10px 25px rgba(0,0,0,.08)}
+.finance{padding:80px 20px;text-align:center;background:linear-gradient(135deg,#0b4edb,#53b6ff);color:white;margin-top:40px}
+#contact{padding:60px 20px}
+form{max-width:600px;margin:auto;display:flex;flex-direction:column;gap:12px}
+input,textarea{padding:14px;border:1px solid #ddd;border-radius:12px}
+.contactinfo{text-align:center;margin-top:20px}
+footer{text-align:center;background:#081f56;color:white;padding:25px}
+@media(max-width:768px){.hero h1{font-size:2.4rem}.search-box{flex-direction:column}.stats{flex-direction:column}}
