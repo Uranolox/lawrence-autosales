@@ -119,28 +119,20 @@ const vehicle =
 doc.data();
 
 inventoryGrid.innerHTML += `
-
 <div class="card">
 
-<div
-class="img"
-style="
-background-image:url('${vehicle.image}');
-background-size:cover;
-background-position:center;
-">
-</div>
+<img
+class="vehicle-photo"
+src="${vehicle.image}"
+alt="${vehicle.title}">
 
 <h3>${vehicle.title}</h3>
 
 <p>$${vehicle.price}</p>
 
-<button>
-View Details
-</button>
+<button>View Details</button>
 
 </div>
-
 `;
 
 });
