@@ -501,3 +501,22 @@ font-size:18px;
 }
 
 }
+
+@media (max-width: 900px){
+
+.hero-car{
+display:none;
+}
+
+.hero-content{
+width:100%;
+text-align:center;
+margin:auto;
+}
+
+.hero{
+height:60vh;
+padding:40px 20px;
+}
+
+}
