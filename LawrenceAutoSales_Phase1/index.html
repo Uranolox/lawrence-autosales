@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lawrence Auto Sales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+<div class="brand">
+<img src="logo.png" alt="Logo">
+</div>
+<div class="menu">
+<a href="#inventory">Inventory</a>
+
+<a href="#reviews">Reviews</a>
+<a href="#contact">Contact</a>
+<a href="admin.html">Admin Login</a>
+<a class="callbtn" href="tel:9132963579">Call Now</a>
+</div>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <span class="badge">QUALITY PRE-OWNED VEHICLES</span>
+
+        <h1>Find Your Next Vehicle Today</h1>
+
+        <div class="hero-buttons">
+            <button>Browse Inventory</button>
+        </div>
+    </div>
+
+    <div class="hero-car" style="position:absolute; right:-100px; top:px;">
+    <img src="crown_sedan_w610(1).png"
+         alt="Featured Vehicle"
+         style="width:1000px;">
+</div>
+
+    
+</section>
+
+<div class="search-box">
+<select><option>Make</option></select>
+<select><option>Model</option></select>
+<select><option>Year</option></select>
+<select><option>Price</option></select>
+<button>Search</button>
+</div>
+
+<section id="inventory">
+<h2>Featured Inventory</h2>
+<div class="grid" id="inventoryGrid">
+
+</div>
+</section>
+
+
+
+<section id="reviews">
+<h2>Customer reviews</h2>
+<div class="reviews">
+<div class="review">Kenny McGee<br>★★★★★<br>Great experience and very satisfied with my purchase.</div>
+<div class="review">Charles Wheat<br>★★★★★<br>Very professional experience. I'm pleased with my car!!</div>
+<div class="review">★★★★★<br>Friendly staff and fair prices.</div>
+</div>
+</section>
+
+
+
+<section id="contact">
+<h2>Contact Lawrence Auto Sales</h2>
+<form>
+<input placeholder="Name">
+<input placeholder="Email">
+<textarea placeholder="Message"></textarea>
+<button type="button">Send Message</button>
+</form>
+<div class="contactinfo">
+<p>📞 (913) 296-3579</p>
+<p>📧 Abderrahmend84@gmail.com</p>
+<p>📍 2400 Ponderosa Street</p>
+</div>
+</section>
+
+<footer>© 2026 Lawrence Auto Sales</footer>
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+collection,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+const inventoryGrid =
+document.getElementById(
+"inventoryGrid"
+);
+
+async function loadInventory(){
+
+inventoryGrid.innerHTML = "";
+
+const querySnapshot =
+await getDocs(
+collection(db,"vehicles")
+);
+
+querySnapshot.forEach((doc)=>{
+
+const vehicle =
+doc.data();
+
+inventoryGrid.innerHTML += `
+
+<div class="card">
+
+<div
+class="img"
+style="
+background-image:url('${vehicle.image}');
+background-size:cover;
+background-position:center;
+">
+</div>
+
+<h3>${vehicle.title}</h3>
+
+<p>$${vehicle.price}</p>
+
+<button>
+View Details
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadInventory();
+
+</script>
+
+</body>
+</html>
