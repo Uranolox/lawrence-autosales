@@ -19,6 +19,7 @@
 
 <a href="#reviews">Reviews</a>
 <a href="#contact">Contact</a>
+<a href="admin.html">Admin Login</a>
 <a class="callbtn" href="tel:9132963579">Call Now</a>
 </div>
 </nav>
@@ -53,13 +54,8 @@
 
 <section id="inventory">
 <h2>Featured Inventory</h2>
-<div class="grid">
-<div class="card"><div class="img"></div><h3>2022 Toyota Camry</h3><p>$24,995</p><button>View Details</button></div>
-<div class="card"><div class="img"></div><h3>2021 Honda Accord</h3><p>$22,995</p><button>View Details</button></div>
-<div class="card"><div class="img"></div><h3>2020 Ford F-150</h3><p>$29,995</p><button>View Details</button></div>
-<div class="card"><div class="img"></div><h3>2023 Chevrolet Malibu</h3><p>$25,995</p><button>View Details</button></div>
-<div class="card"><div class="img"></div><h3>2022 Nissan Altima</h3><p>$21,995</p><button>View Details</button></div>
-<div class="card"><div class="img"></div><h3>2021 Toyota RAV4</h3><p>$27,995</p><button>View Details</button></div>
+<div class="grid" id="inventoryGrid">
+
 </div>
 </section>
 
@@ -92,5 +88,68 @@
 </section>
 
 <footer>© 2026 Lawrence Auto Sales</footer>
+<script type="module">
+
+import { db }
+from "./firebase.js";
+
+import {
+collection,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+const inventoryGrid =
+document.getElementById(
+"inventoryGrid"
+);
+
+async function loadInventory(){
+
+inventoryGrid.innerHTML = "";
+
+const querySnapshot =
+await getDocs(
+collection(db,"vehicles")
+);
+
+querySnapshot.forEach((doc)=>{
+
+const vehicle =
+doc.data();
+
+inventoryGrid.innerHTML += `
+
+<div class="card">
+
+<div
+class="img"
+style="
+background-image:url('${vehicle.image}');
+background-size:cover;
+background-position:center;
+">
+</div>
+
+<h3>${vehicle.title}</h3>
+
+<p>$${vehicle.price}</p>
+
+<button>
+View Details
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadInventory();
+
+</script>
+
 </body>
 </html>
