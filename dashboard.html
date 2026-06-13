@@ -4,6 +4,8 @@
 
 <head>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Vehicle Dashboard</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -13,7 +15,7 @@
 body{
 font-family:Poppins,sans-serif;
 background:#f5f9ff;
-padding:40px;
+padding:20px;
 }
 
 .container{
@@ -29,23 +31,32 @@ box-shadow:0 10px 30px rgba(0,0,0,.08);
 margin-bottom:25px;
 }
 
-input{
+input,
+textarea{
 width:100%;
 padding:14px;
 margin-bottom:12px;
 border:1px solid #ddd;
 border-radius:10px;
 box-sizing:border-box;
+font-size:16px;
+}
+
+textarea{
+height:120px;
+resize:vertical;
 }
 
 button{
 background:#1565ff;
 color:white;
 border:none;
-padding:14px 20px;
+padding:16px;
 border-radius:10px;
 cursor:pointer;
 font-weight:700;
+font-size:16px;
+width:100%;
 }
 
 .vehicle{
@@ -56,18 +67,57 @@ border-radius:15px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+gap:15px;
 box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
 .vehicle img{
-width:120px;
-height:80px;
+width:140px;
+height:90px;
 object-fit:cover;
 border-radius:10px;
 }
 
+.vehicle-info{
+flex:1;
+}
+
+.vehicle-info h3{
+margin-bottom:8px;
+}
+
+.vehicle-info p{
+margin-bottom:5px;
+}
+
 .delete{
 background:red;
+width:auto;
+padding:12px 18px;
+}
+
+@media(max-width:768px){
+
+.vehicle{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.vehicle img{
+width:100%;
+height:220px;
+}
+
+.delete{
+width:100%;
+margin-top:10px;
+}
+
+button{
+min-height:60px;
+font-size:18px;
+}
+
 }
 
 </style>
@@ -82,11 +132,25 @@ background:red;
 
 <h2>Add Vehicle</h2>
 
-<input id="title" placeholder="Vehicle Name">
+<input id="year" placeholder="Year">
+
+<input id="make" placeholder="Make">
+
+<input id="model" placeholder="Model">
+
+<input id="mileage" placeholder="Mileage">
 
 <input id="price" placeholder="Price">
 
-<input id="image" type="file">
+<textarea
+id="description"
+placeholder="Vehicle Description"></textarea>
+
+<input
+id="images"
+type="file"
+multiple
+accept="image/*">
 
 <button id="addVehicle">
 

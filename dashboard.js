@@ -2,22 +2,18 @@ import { db, storage }
 from "./firebase.js";
 
 import {
-
 collection,
 addDoc,
 getDocs,
 deleteDoc,
 doc
-
 }
 from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
 import {
-
 ref,
 uploadBytes,
 getDownloadURL
-
 }
 from "https://www.gstatic.com/firebasejs/11.9.1/firebase-storage.js";
 
@@ -45,13 +41,27 @@ vehicleList.innerHTML += `
 
 <div class="vehicle">
 
-<div>
+<div class="vehicle-info">
 
 <img src="${vehicle.image}">
 
-<h3>${vehicle.title}</h3>
+<h3>
+${vehicle.year || ""}
+${vehicle.make || ""}
+${vehicle.model || ""}
+</h3>
 
-<p>$${vehicle.price}</p>
+<p>
+🚗 ${vehicle.mileage || "N/A"} miles
+</p>
+
+<p>
+💲${vehicle.price || ""}
+</p>
+
+<p>
+${vehicle.description || ""}
+</p>
 
 </div>
 
@@ -86,27 +96,55 @@ addVehicleBtn.addEventListener(
 "click",
 async ()=>{
 
-const title =
-document.getElementById("title").value;
+const year =
+document.getElementById("year").value;
+
+const make =
+document.getElementById("make").value;
+
+const model =
+document.getElementById("model").value;
+
+const mileage =
+document.getElementById("mileage").value;
 
 const price =
 document.getElementById("price").value;
 
-const file =
-document.getElementById("image").files[0];
+const description =
+document.getElementById("description").value;
 
-if(!title || !price || !file){
+const files =
+document.getElementById("images").files;
 
-alert("Fill all fields");
+const thumbnail =
+vehicle.images?.[0] || vehicle.image || "";
+
+if(
+!year ||
+!make ||
+!model ||
+!price ||
+files.length === 0
+){
+
+alert("Fill required fields");
 
 return;
 
 }
 
+const imageURLs = [];
+
+for(const file of files){
+
 const storageRef =
 ref(
 storage,
-"cars/" + Date.now() + "_" + file.name
+"cars/" +
+Date.now() +
+"_" +
+file.name
 );
 
 await uploadBytes(
@@ -117,19 +155,31 @@ file
 const imageURL =
 await getDownloadURL(storageRef);
 
+imageURLs.push(imageURL);
+
+}
+
 await addDoc(
 collection(db,"vehicles"),
 {
-title:title,
-price:price,
-image:imageURL
+year,
+make,
+model,
+mileage,
+price,
+description,
+images:imageURLs
 }
 );
 
 alert("Vehicle Added");
 
-document.getElementById("title").value="";
+document.getElementById("year").value="";
+document.getElementById("make").value="";
+document.getElementById("model").value="";
+document.getElementById("mileage").value="";
 document.getElementById("price").value="";
+document.getElementById("description").value="";
 document.getElementById("image").value="";
 
 loadVehicles();

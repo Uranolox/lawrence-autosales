@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+<style>
+
+.gallery-container{
+position:relative;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+#prevBtn,
+#nextBtn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+width:70px;
+height:70px;
+font-size:28px;
+border:none;
+border-radius:50%;
+background:white;
+font-size:24px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+#prevBtn{
+left:20px;
+}
+
+#nextBtn{
+right:20px;
+}
+
+#dots{
+display:flex;
+justify-content:center;
+gap:12px;
+margin-top:20px;
+}
+
+.dot{
+width:14px;
+height:14px;
+border-radius:50%;
+background:#bbb;
+cursor:pointer;
+}
+
+.dot.active{
+background:white;
+border:2px solid #1565ff;
+}
+
+</style>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Vehicle Details</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div id="vehicleContainer">
+
+Loading...
+
+</div>
+
+<script type="module" src="vehicle.js"></script>
+
+</body>
+
+</html>

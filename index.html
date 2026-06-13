@@ -118,24 +118,56 @@ querySnapshot.forEach((doc)=>{
 const vehicle =
 doc.data();
 
+const thumbnail =
+vehicle.images?.[0] ||
+vehicle.image ||
+"";
+
 inventoryGrid.innerHTML += `
+
 <div class="card">
 
 <img
 class="vehicle-photo"
-src="${vehicle.image}"
-alt="${vehicle.title}">
+src="${thumbnail}"
+alt="${vehicle.make || ""} ${vehicle.model || ""}">
 
-<h3>${vehicle.title}</h3>
+<h3>
+${vehicle.year || ""}
+${vehicle.make || ""}
+${vehicle.model || ""}
+</h3>
 
-<p>$${vehicle.price}</p>
+<p>
+🚗 ${vehicle.mileage || "N/A"} miles
+</p>
 
-<button>View Details</button>
+<p style="
+color:#666;
+font-size:.9rem;
+margin-top:8px;
+">
+${vehicle.description || ""}
+</p>
+
+<p class="card-price">
+$${vehicle.price || ""}
+</p>
+
+<a
+href="vehicle.html?id=${doc.id}"
+class="details-btn">
+
+View Details
+
+</a>
 
 </div>
+
 `;
 
 });
+
 
 }
 
