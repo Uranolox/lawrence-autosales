@@ -55,14 +55,10 @@ images[0] || "";
 vehicleContainer.innerHTML = `
 
 <div style="
-max-width:1400px;
+max-width:1200px;
 margin:auto;
 padding:30px;
 ">
-
-<div class="vehicle-layout">
-
-<div class="vehicle-gallery">
 
 <div class="gallery-container">
 
@@ -85,85 +81,51 @@ background:#f5f5f5;
 
 <div id="dots"></div>
 
-</div>
-
-<div>
-
 <h1>
 ${vehicle.year || ""}
 ${vehicle.make || ""}
 ${vehicle.model || ""}
 </h1>
 
-</div>
-
-<div class="vehicle-info">
-
-<div class="price-box">
-
+<h2 style="
+color:#16a34a;
+font-size:2.5rem;
+margin-top:10px;
+">
 $${vehicle.price || ""}
+</h2>
 
-</div>
+<p style="
+font-size:1.1rem;
+margin-top:10px;
+">
+🚗 ${vehicle.mileage || "N/A"} miles
+</p>
 
-<div class="spec">
-
-🚗 Mileage:
-${vehicle.mileage || "N/A"} miles
-
-</div>
-
-<div class="spec">
-
-⚙️ Transmission:
-${vehicle.transmission || "Automatic"}
-
-</div>
-
-<div class="spec">
-
-⛽ Fuel:
-${vehicle.fuel || "Gas"}
-
-</div>
-
-<div class="spec">
-
-🎨 Color:
-${vehicle.color || "Black"}
-
-</div>
-
-<div class="spec">
-
-🚙 Drivetrain:
-${vehicle.drivetrain || "AWD"}
-
-</div>
+<p style="
+margin-top:15px;
+line-height:1.6;
+color:#555;
+">
+${vehicle.description || ""}
+</p>
 
 <a
 href="tel:9132963579"
-class="call-btn">
+style="
+display:inline-block;
+margin-top:25px;
+background:#1565ff;
+color:white;
+padding:15px 25px;
+border-radius:30px;
+text-decoration:none;
+font-weight:700;
+">
 
 Call Now
 
 </a>
-
-</div>
-
-</div>
-
-<div class="description-box">
-
-<h2>Description</h2>
-
-<p>
-
-${vehicle.description || ""}
-
-</p>
-
-</div>
-
 
 </div>
 

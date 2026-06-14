@@ -418,6 +418,14 @@ max-width:650px;
 font-size:3rem;
 }
 
+.vehicle-gallery{
+padding:15px;
+}
+
+#mainImage{
+height:320px;
+}
+
 }
 
 @media (max-width: 768px){

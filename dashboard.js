@@ -23,6 +23,9 @@ document.getElementById("addVehicle");
 const vehicleList =
 document.getElementById("vehicleList");
 
+const inquiryList =
+document.getElementById("inquiryList");
+
 async function loadVehicles(){
 
 vehicleList.innerHTML = "";
@@ -43,7 +46,7 @@ vehicleList.innerHTML += `
 
 <div class="vehicle-info">
 
-<img src="${vehicle.image}">
+<img src="${vehicle.images?.[0] || ''}">
 
 <h3>
 ${vehicle.year || ""}
@@ -91,7 +94,51 @@ doc(db,"vehicles",id)
 loadVehicles();
 
 }
+async function loadInquiries(){
 
+inquiryList.innerHTML = "";
+
+const querySnapshot =
+await getDocs(
+collection(db,"inquiries")
+);
+
+querySnapshot.forEach((documentData)=>{
+
+const inquiry =
+documentData.data();
+
+inquiryList.innerHTML += `
+
+<div class="vehicle">
+
+<div class="vehicle-info">
+
+<h3>
+${inquiry.name || "Unknown"}
+</h3>
+
+<p>
+📧 ${inquiry.email || ""}
+</p>
+
+<p>
+📞 ${inquiry.phone || ""}
+</p>
+
+<p>
+${inquiry.message || ""}
+</p>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
 addVehicleBtn.addEventListener(
 "click",
 async ()=>{
@@ -108,6 +155,18 @@ document.getElementById("model").value;
 const mileage =
 document.getElementById("mileage").value;
 
+const transmission =
+document.getElementById("transmission").value;
+
+const fuel =
+document.getElementById("fuel").value;
+
+const color =
+document.getElementById("color").value;
+
+const drivetrain =
+document.getElementById("drivetrain").value;
+
 const price =
 document.getElementById("price").value;
 
@@ -117,8 +176,7 @@ document.getElementById("description").value;
 const files =
 document.getElementById("images").files;
 
-const thumbnail =
-vehicle.images?.[0] || vehicle.image || "";
+
 
 if(
 !year ||
@@ -166,6 +224,10 @@ year,
 make,
 model,
 mileage,
+transmission,
+fuel,
+color,
+drivetrain,
 price,
 description,
 images:imageURLs
@@ -180,11 +242,18 @@ document.getElementById("model").value="";
 document.getElementById("mileage").value="";
 document.getElementById("price").value="";
 document.getElementById("description").value="";
-document.getElementById("image").value="";
+document.getElementById("images").value="";
+document.getElementById("transmission").value="";
+document.getElementById("fuel").value="";
+document.getElementById("color").value="";
+document.getElementById("drivetrain").value="";
 
 loadVehicles();
+
+
 
 }
 );
 
 loadVehicles();
+loadInquiries();

@@ -45,11 +45,13 @@
 </section>
 
 <div class="search-box">
-<select><option>Make</option></select>
-<select><option>Model</option></select>
-<select><option>Year</option></select>
-<select><option>Price</option></select>
-<button>Search</button>
+<input
+id="searchInput"
+placeholder="Make, model, year...">
+
+<button id="searchBtn">
+Search
+</button>
 </div>
 
 <section id="inventory">
@@ -75,10 +77,23 @@
 <section id="contact">
 <h2>Contact Lawrence Auto Sales</h2>
 <form>
-<input placeholder="Name">
-<input placeholder="Email">
-<textarea placeholder="Message"></textarea>
-<button type="button">Send Message</button>
+<input id="name" placeholder="Name">
+
+<input id="email" placeholder="Email">
+
+<input id="phone" placeholder="Phone Number">
+
+<textarea
+id="message"
+placeholder="Message"></textarea>
+
+<button
+type="button"
+id="sendMessage">
+
+Send Message
+
+</button>
 </form>
 <div class="contactinfo">
 <p>📞 (913) 296-3579</p>
@@ -95,7 +110,8 @@ from "./firebase.js";
 
 import {
 collection,
-getDocs
+getDocs,
+addDoc
 }
 from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
@@ -104,19 +120,13 @@ document.getElementById(
 "inventoryGrid"
 );
 
-async function loadInventory(){
+let allVehicles = [];
+
+function displayVehicles(vehicles){
 
 inventoryGrid.innerHTML = "";
 
-const querySnapshot =
-await getDocs(
-collection(db,"vehicles")
-);
-
-querySnapshot.forEach((doc)=>{
-
-const vehicle =
-doc.data();
+vehicles.forEach((vehicle)=>{
 
 const thumbnail =
 vehicle.images?.[0] ||
@@ -155,7 +165,7 @@ $${vehicle.price || ""}
 </p>
 
 <a
-href="vehicle.html?id=${doc.id}"
+href="vehicle.html?id=${vehicle.id}"
 class="details-btn">
 
 View Details
@@ -168,12 +178,131 @@ View Details
 
 });
 
+}
+
+async function loadInventory(){
+
+allVehicles = [];
+
+const querySnapshot =
+await getDocs(
+collection(db,"vehicles")
+);
+
+querySnapshot.forEach((doc)=>{
+
+const vehicle =
+doc.data();
+
+allVehicles.push({
+id: doc.id,
+...vehicle
+});
+
+});
+
+displayVehicles(allVehicles);
 
 }
 
+document
+.getElementById("searchBtn")
+.onclick = ()=>{
+
+const search =
+document
+.getElementById("searchInput")
+.value
+.toLowerCase()
+.trim();
+
+if(search === ""){
+
+displayVehicles(allVehicles);
+
+return;
+
+}
+
+const filtered =
+allVehicles.filter(vehicle =>
+
+(vehicle.make || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+(vehicle.model || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+(vehicle.year || "")
+.toString()
+.includes(search)
+
+||
+
+(vehicle.color || "")
+.toLowerCase()
+.includes(search)
+
+);
+
+displayVehicles(filtered);
+
+};
+
 loadInventory();
+document
+.getElementById("sendMessage")
+.onclick = async ()=>{
+
+const name =
+document.getElementById("name").value;
+
+const email =
+document.getElementById("email").value;
+
+const phone =
+document.getElementById("phone").value;
+
+const message =
+document.getElementById("message").value;
+
+if(
+!name ||
+!email ||
+!message
+){
+alert("Please fill required fields");
+return;
+}
+
+await addDoc(
+collection(db,"inquiries"),
+{
+name,
+email,
+phone,
+message,
+date:new Date()
+}
+);
+
+alert("Message Sent!");
+
+document.getElementById("name").value="";
+document.getElementById("email").value="";
+document.getElementById("phone").value="";
+document.getElementById("message").value="";
+
+};
 
 </script>
+
 
 </body>
 </html>
